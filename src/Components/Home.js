@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import SnippetList from "./SnippetList";
+import Editor from "./Editor";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
@@ -38,6 +40,7 @@ function Home() {
       code: editorCode,
     };
     await Axios.post("http://localhost:5000/snippet/saveSnippet", snippet);
+    clearEditor();
     getSnippets();
   }
 
@@ -52,6 +55,7 @@ function Home() {
       snippet
     );
     setEditId(null);
+    clearEditor();
     getSnippets();
   }
 
@@ -62,46 +66,30 @@ function Home() {
     setEditId(_id);
   }
 
+  function clearEditor(){
+    setEditorTitle("");
+    setEditorDesc("");
+    setEditorCode("");
+  }
+
   return (
-    <div>
-      <div>
-        <form>
-          <input
-            type="text"
-            value={editorTitle}
-            onChange={(e) => setEditorTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            defaultValue={editorDesc}
-            onChange={(e) => setEditorDesc(e.target.value)}
-          />
-          <textarea
-            value={editorCode}
-            onChange={(e) => setEditorCode(e.target.value)}
-          />
-        </form>
-        {!editId ? (
-          <button onClick={saveSnippet}>Save</button>
-        ) : (
-          <button onClick={updateSnippet}>Update</button>
-        )}
-      </div>
-      {snippets.map((item, i) => {
-        return (
-          <ul key={i}>
-            <li>{item.title}</li>
-            <li>{item.description}</li>
-            <li>
-              <pre>{item.code}</pre>
-            </li>
-            <li>
-              <button onClick={() => deleteSnippet(item._id)}>Delete</button>
-              <button onClick={() => setEditData(item)}>Edit</button>
-            </li>
-          </ul>
-        );
-      })}
+    <div className="snippet-manager">
+      <Editor
+        editorTitle={editorTitle}
+        editorDesc={editorDesc}
+        editorCode={editorCode}
+        setEditorTitle={setEditorTitle}
+        setEditorDesc={setEditorDesc}
+        setEditorCode={setEditorCode}
+        editId={editId}
+        saveSnippet={saveSnippet}
+        updateSnippet={updateSnippet}
+      ></Editor>
+      <SnippetList
+        snippets={snippets}
+        setEditData={setEditData}
+        deleteSnippet={deleteSnippet}
+      />
     </div>
   );
 }

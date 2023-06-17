@@ -1,19 +1,15 @@
 import React from "react";
+import "./App.scss";
 import { Routes } from "react-router";
-import { Route, BrowserRouter, Link } from "react-router-dom";
-import Home from "./Home";
+import { Route, BrowserRouter } from "react-router-dom";
+import Home from "./Components/Home";
+import Header from "./Components/Header";
 
 function App() {
   return (
-    <div className="p-5">
+    <div className="wrapper">
       <BrowserRouter>
-        <div className="mb-5">
-          <Link to="/">Counter</Link>
-          <Link to="/home" className="ml-5">
-            Snippets
-          </Link>
-        </div>
-
+        <Header />
         <Routes>
           <Route path="/home" element={<Home />}></Route>
         </Routes>
