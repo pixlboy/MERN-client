@@ -1,4 +1,6 @@
 import React from "react";
+import StarRating from "../StarRating/StarRating";
+import "./SnippetList.scss";
 
 function SnippetList({ snippets, setEditData, deleteSnippet }) {
   return (
@@ -6,6 +8,7 @@ function SnippetList({ snippets, setEditData, deleteSnippet }) {
       {snippets.map((item, i) => {
         return (
           <div key={i} className="snippet">
+            <StarRating />
             <h3 className="title">{item.title}</h3>
             <div className="desc">{item.description}</div>
             <pre className="code">{item.code}</pre>

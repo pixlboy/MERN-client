@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import SnippetList from "./SnippetList";
-import Editor from "./Editor";
+import SnippetList from "../SnippetList/SnippetList";
+import SnippetEditor from "../SnippetEditor/SnippetEditor";
+import "./SnippetManager.scss";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
@@ -66,7 +67,7 @@ function Home() {
     setEditId(_id);
   }
 
-  function clearEditor(){
+  function clearEditor() {
     setEditorTitle("");
     setEditorDesc("");
     setEditorCode("");
@@ -74,7 +75,7 @@ function Home() {
 
   return (
     <div className="snippet-manager">
-      <Editor
+      <SnippetEditor
         editorTitle={editorTitle}
         editorDesc={editorDesc}
         editorCode={editorCode}
@@ -84,7 +85,7 @@ function Home() {
         editId={editId}
         saveSnippet={saveSnippet}
         updateSnippet={updateSnippet}
-      ></Editor>
+      ></SnippetEditor>
       <SnippetList
         snippets={snippets}
         setEditData={setEditData}

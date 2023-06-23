@@ -1,0 +1,32 @@
+.snippet-list {
+  height: 80vh;
+  overflow: auto;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  .snippet {
+    position: relative;
+    padding: 20px;
+    background-color: white;
+    margin: 0 0 10px 0;
+    .title,
+    .code,
+    .desc {
+      margin: 0 0 0.5rem 0;
+      padding: 0;
+    }
+    .desc {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      margin-right: 0.5rem;
+    }
+    .star-rating {
+      right: 20px;
+      top: 20px;
+      position: absolute;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React from "react";
+import "./SnippetEditor.scss";
 
-function Editor({
+function SnippetEditor({
   editorTitle,
   editorDesc,
   editorCode,
@@ -12,9 +13,9 @@ function Editor({
   updateSnippet,
 }) {
   return (
-    <div className="editor">
+    <div className="snippet-editor">
       <form>
-        <div className="item">
+        <div className="form-item">
           <label>Title</label>
           <input
             type="text"
@@ -22,7 +23,7 @@ function Editor({
             onChange={(e) => setEditorTitle(e.target.value)}
           />
         </div>
-        <div className="item">
+        <div className="form-item">
           <label>Description</label>
           <input
             type="text"
@@ -30,7 +31,7 @@ function Editor({
             onChange={(e) => setEditorDesc(e.target.value)}
           />
         </div>
-        <div className="item">
+        <div className="form-item">
           <label>Code</label>
           <textarea
             value={editorCode}
@@ -53,4 +54,4 @@ function Editor({
   );
 }
 
-export default Editor;
+export default SnippetEditor;

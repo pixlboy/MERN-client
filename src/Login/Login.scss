@@ -1,0 +1,16 @@
+.login-container {
+  text-align: center;
+  margin: 0 auto;
+  width: 400px;
+  .form{
+    margin-top: 50px;
+  }
+  .error{
+    margin-top: 20px;
+    text-align: center;
+    color: var(--btn-failure);
+  }
+  .actions{
+    text-align: end;
+  }
+}

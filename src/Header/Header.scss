@@ -1,0 +1,20 @@
+.header {
+  padding: 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    display: inline-block;
+    margin: 0;
+  }
+  .links {
+    display: inline-block;
+    right: 25px;
+    position: absolute;
+  }
+  .login-link {
+    margin: 0 10px;
+    color: var(--btn-default);
+  }
+}
