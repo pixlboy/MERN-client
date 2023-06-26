@@ -1,12 +1,17 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Register.scss";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../Shared/UserProvider";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
   const [message, setMessage] = useState("");
+
+  const { getUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   async function registerUser(e) {
     e.preventDefault();
@@ -20,12 +25,10 @@ function Register() {
     try {
       await Axios.post("http://localhost:5000/auth/register", user);
       setMessage("Successfully Registered");
-      setEmail("");
-      setPassword("");
-      setPasswordVerify("");
+      await getUser();
+      navigate("/home");
     } catch (error) {
-      const { data } = error?.response;
-      setMessage(data?.errorMessage);
+      setMessage(error?.response?.data?.errorMessage);
     }
   }
 

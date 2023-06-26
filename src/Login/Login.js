@@ -1,11 +1,17 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.scss";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../Shared/UserProvider";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const { getUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   async function loginUser(e) {
     e.preventDefault();
@@ -17,11 +23,10 @@ function Login() {
 
     try {
       await Axios.post("http://localhost:5000/auth/login", user);
-      setEmail("");
-      setPassword("");
-      setMessage("");
+      await getUser();
+      navigate("/home");
     } catch (error) {
-      setMessage(error?.response?.errorMessage);
+      setMessage(error?.response?.data?.errorMessage);
     }
   }
 

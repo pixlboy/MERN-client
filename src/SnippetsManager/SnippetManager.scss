@@ -1,3 +1,9 @@
 .snippet-manager {
   display: flex;
+  .error{
+    margin-top: 20px;
+    flex: 1;
+    text-align: center;
+    color: var(--btn-failure);
+  }
 }

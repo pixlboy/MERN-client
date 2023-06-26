@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import SnippetList from "../SnippetList/SnippetList";
 import SnippetEditor from "../SnippetEditor/SnippetEditor";
 import "./SnippetManager.scss";
+import UserContext from "../Shared/UserProvider";
 
 function Home() {
+  const [loading, setLoading] = useState(true);
   const [snippets, setSnippets] = useState([]);
   const [editorTitle, setEditorTitle] = useState("");
   const [editorDesc, setEditorDesc] = useState("");
   const [editorCode, setEditorCode] = useState("");
   const [editId, setEditId] = useState(null);
 
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
+    if (!user) return;
     getSnippets();
-  }, []);
+  }, [user]);
 
   // const searchByName = (value) => {
   //   const temp = items.filter((item) => {
@@ -27,6 +32,7 @@ function Home() {
       "http://localhost:5000/snippet/getSnippets"
     );
     setSnippets(snippets.data);
+    setLoading(false);
   }
 
   async function deleteSnippet(id) {
@@ -75,24 +81,32 @@ function Home() {
 
   return (
     <div className="snippet-manager">
-      <SnippetEditor
-        editorTitle={editorTitle}
-        editorDesc={editorDesc}
-        editorCode={editorCode}
-        setEditorTitle={setEditorTitle}
-        setEditorDesc={setEditorDesc}
-        setEditorCode={setEditorCode}
-        editId={editId}
-        saveSnippet={saveSnippet}
-        updateSnippet={updateSnippet}
-      ></SnippetEditor>
-      <SnippetList
-        snippets={snippets}
-        setEditData={setEditData}
-        deleteSnippet={deleteSnippet}
-      />
+      {user && user !== null && (
+        <>
+          <SnippetEditor
+            editorTitle={editorTitle}
+            editorDesc={editorDesc}
+            editorCode={editorCode}
+            setEditorTitle={setEditorTitle}
+            setEditorDesc={setEditorDesc}
+            setEditorCode={setEditorCode}
+            editId={editId}
+            saveSnippet={saveSnippet}
+            updateSnippet={updateSnippet}
+          ></SnippetEditor>
+          {!loading && snippets?.length === 0 ? (
+            <h6 className="error">You have not created any snippets yet.</h6>
+          ) : (
+            <SnippetList
+              snippets={snippets}
+              setEditData={setEditData}
+              deleteSnippet={deleteSnippet}
+            />
+          )}
+        </>
+      )}
+      {user === null && <h6 className="error">You are not logged in.</h6>}
     </div>
   );
 }
-
 export default Home;
